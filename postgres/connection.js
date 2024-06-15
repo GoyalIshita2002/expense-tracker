@@ -4,7 +4,7 @@ const CategoryModel = require('../models/category.js');
 const ExpenseModel = require('../models/expense.js');
 const CategoryExpenseModel = require('../models/categoryexpense.js'); // Import the CategoryExpense model
 
-const sequelize = new Sequelize('expensetracker', 'johndoe', 'randompassword', {
+const sequelize = new Sequelize('expensetracker', 'postgres', 'postgres', {
   host: 'localhost',
   dialect: 'postgres'
 });

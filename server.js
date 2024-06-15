@@ -1,10 +1,13 @@
+
 const express = require('express');
 const { connectDB } = require('./postgres/connection.js');
 const routes = require('./router/router.js');
+const cors = require('cors');
 const app = express();
 const PORT = 8000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     return res.json({ message: "Hello, how are you?" });
