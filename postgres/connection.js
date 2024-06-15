@@ -6,10 +6,24 @@ const CategoryExpenseModel = require('../models/categoryexpense.js');
 const IncomeModel = require('../models/income.js');
 const GoalModel = require('../models/goal.js');
 
-const sequelize = new Sequelize('expensetracker', 'johndoe', 'randompassword', {
-  host: 'localhost',
-  dialect: 'postgres'
-});
+// const sequelize = new Sequelize('expensetracker', 'johndoe', 'randompassword', {
+//   host: 'localhost',
+//   dialect: 'postgres'
+// });
+let sequelize;
+if (process.env.DB_URL) {
+  sequelize = new Sequelize(process.env.DB_URL);
+} else {
+  sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PW,
+    {
+      host: 'localhost',
+      dialect: 'postgres',
+    },
+  );
+}
 
 const User = UserModel(sequelize, Sequelize.DataTypes);
 const Expense = ExpenseModel(sequelize, Sequelize.DataTypes);
