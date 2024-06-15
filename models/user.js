@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     tableName: 'users',
-    timestamps: true // If you want to add createdAt and updatedAt fields
+    timestamps: true 
   });
 
   User.associate = models => {

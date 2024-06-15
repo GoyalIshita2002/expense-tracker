@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0,
       validate: {
-        min: 0 // Ensure amount is non-negative
+        min: 0 
       }
     }
   }, {
@@ -19,12 +19,6 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Expense.associate = models => {
-    // Expense.hasMany(models.CategoryExpense, { foreignKey: 'expense_id', onDelete: 'CASCADE' });
-    // Expense.belongsToMany(models.Category, {
-    //   through: models.CategoryExpense,
-    //   foreignKey: 'expense_id',
-    //   as: 'categories'
-    // });
     Expense.belongsTo(models.User, {
       foreignKey: {
         name: 'user_id',

@@ -1,4 +1,4 @@
-const { CategoryExpense } = require('../postgres/connection.js'); // Import CategoryExpense model
+const { CategoryExpense } = require('../postgres/connection.js'); 
 
 const CreateCategoryExpense = async (req, res) => {
   const { CategoryId, ExpenseId } = req.body;

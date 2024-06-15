@@ -19,11 +19,5 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
 
-    // Define associations
-    // CategoryExpense.associate = models => {
-    //     CategoryExpense.belongsTo(models.Expense, { foreignKey: 'expense_id', onDelete: 'CASCADE' });
-    //     CategoryExpense.belongsTo(models.Category, { foreignKey: 'category_id', onDelete: 'CASCADE' });
-    //   };
-
   return CategoryExpense;
 };

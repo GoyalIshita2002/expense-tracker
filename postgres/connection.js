@@ -17,13 +17,6 @@ const CategoryExpense = CategoryExpenseModel(sequelize, Sequelize.DataTypes); //
 User.hasMany(Expense, { foreignKey: 'user_id', as: 'expenses' });
 Expense.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
-// // Define the many-to-many relationship between Category and Expense using the CategoryExpense join model
-// Category.belongsToMany(Expense, { through: CategoryExpense, foreignKey: 'category_id', as: 'expenses' });
-// Expense.belongsToMany(Category, { through: CategoryExpense, foreignKey: 'expense_id', as: 'categories' });
-
-// // Ensure associations are properly loaded
-// CategoryExpense.associate({ Expense, Category }); // Corrected this line
-
 Category.belongsToMany(Expense, { through: CategoryExpense });
 Expense.belongsToMany(Category, { through: CategoryExpense });
 
