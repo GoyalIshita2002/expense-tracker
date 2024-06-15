@@ -6,10 +6,11 @@ const { CreateExpense,GetExpense} = require('../controller/expense.js')
 const { CreateCategory,GetCategory,GetExpenseSpecificCategory,GetDailyExpensesForDate} = require('../controller/category/category.js')
 const { CreateCategoryExpense, GetCategoryExpense } = require('../controller/categoryexpense.js')
 
+
 router.post('/user', CreateUser); 
 router.get('/user', GetUser); 
 router.get('/user/:id', GetUserById); 
-router.get('/signin', SigninUser); 
+router.post('/signin', SigninUser); 
 router.get('/user/:id/category', SpecificUserAllCategory); 
 router.get('/user/:id/expense', SpecificUserExpense);
 router.get('/user/:id/expenseDate', SpecificDateUserExpense); 
