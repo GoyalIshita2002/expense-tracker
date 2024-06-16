@@ -2,7 +2,8 @@ const { Income,User } = require('../../postgres/connection.js')
 
 
 const CreateIncome = async (req, res) => {
-    const { name,amount,userId } = req.body;
+    const userId = req.user.userId;
+    const { name,amount } = req.body;
     try {
       const Incomes = await Income.create({ name,amount,userId });
       return res.status(201).json({ Income: Incomes });
@@ -12,7 +13,7 @@ const CreateIncome = async (req, res) => {
   };
 
   const ShowIncome = async (req,res) =>{
-    const { userId } = req.params;  
+    const userId = req.user.userId; 
     try {
       const users = await User.findOne({ where: {id: userId } });
       if (users) {
@@ -27,7 +28,8 @@ const CreateIncome = async (req, res) => {
   }
 
   const ShowSpecificIncome = async (req,res) =>{
-    const {id,userId} = req.params;
+    const userId = req.user.userId; 
+    const {id} = req.params;
     const users = await User.findOne({ where: {id: userId } });
     try {
       if (users) {
@@ -42,7 +44,8 @@ const CreateIncome = async (req, res) => {
   }
 
   const UpdateIncome = async (req, res) => {
-    const { id,userId } = req.params;
+    const userId = req.user.userId; 
+    const { id } = req.params;
     const { name, amount } = req.body;
     const users = await User.findOne({ where: {id: userId } });
     try {

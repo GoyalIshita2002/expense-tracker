@@ -2,9 +2,9 @@ const {Expense} = require('../../postgres/connection.js')
 const { Op } = require('sequelize');
 
 const SpecificUserExpense = async (req, res) => {
-    const { id } = req.params;
+    const userId = req.user.userId;
     try {
-      const expenses = await Expense.findAll({ where: { user_id: id } });
+      const expenses = await Expense.findAll({ where: { user_id: userId } });
       const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);
       
       return res.status(200).json({ totalAmount });
@@ -16,7 +16,7 @@ const SpecificUserExpense = async (req, res) => {
 
 
   const SpecificDateUserExpense = async (req, res) => {
-    const { id } = req.params;
+    const userId = req.user.userId;
     const date = req.query.date; 
     try {
       let expenses;
@@ -27,14 +27,14 @@ const SpecificUserExpense = async (req, res) => {
         endOfDay.setHours(23, 59, 59, 999);
         expenses = await Expense.findAll({
           where: {
-            user_id: id,
+            user_id: userId,
             date: {
               [Op.between]: [startOfDay, endOfDay]
             }
           }
         });
       } else {
-        expenses = await Expense.findAll({ where: { user_id: id } });
+        expenses = await Expense.findAll({ where: { user_id: userId } });
       }
   
       const totalAmount = expenses.reduce((total, expense) => total + expense.amount, 0);

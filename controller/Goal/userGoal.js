@@ -2,7 +2,8 @@ const { Goal,User } = require('../../postgres/connection.js')
 
 
 const CreateGoal = async (req, res) => {
-    const { name,requiredAmount,goalDeposit,expectedTime,userId } = req.body;
+  const userId = req.user.userId; 
+    const { name,requiredAmount,goalDeposit,expectedTime } = req.body;
     try {
       const Goals = await Goal.create({ name,requiredAmount,goalDeposit,expectedTime,userId });
       return res.status(201).json({ Goal: Goals });
@@ -12,7 +13,7 @@ const CreateGoal = async (req, res) => {
   };
 
   const ShowGoal = async (req, res) => {
-    const { userId } = req.params;  
+    const userId = req.user.userId;
     try {
       const users = await User.findOne({ where: {id: userId } });
       if (users) {
@@ -27,7 +28,8 @@ const CreateGoal = async (req, res) => {
   };
   
   const ShowSpecificGoal = async (req, res) => {
-    const { id, userId } = req.params;
+    const userId = req.user.userId;
+    const { id } = req.params;
     try {
       const user = await User.findOne({ where: {id: userId } });
       if (user) {
@@ -46,7 +48,8 @@ const CreateGoal = async (req, res) => {
   };
 
   const UpdateGoal = async (req, res) => {
-    const { id,userId} = req.params;
+    const userId = req.user.userId;
+    const { id } = req.params;
     const { name,requiredAmount,goalDeposit,expectedTime } = req.body;
     const user = User.findOne({where:{id: userId}});
     try {
@@ -68,7 +71,8 @@ const CreateGoal = async (req, res) => {
   };
 
   const DeleteGoal = async (req, res) => {
-    const { id,userId } = req.params;
+    const userId = req.user.userId;
+    const { id } = req.params;
     const user = User.findOne({where:{id: userId}});
     try {
       if(user){
