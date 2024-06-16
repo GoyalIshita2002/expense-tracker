@@ -1,4 +1,5 @@
 const { User,CategoryExpense,Expense,Category } = require('../../postgres/connection.js');
+const { generateToken } = require('../../utils/jwt.js');
 
 const CreateUser = async (req, res) => {
   const { name, email_id, password } = req.body;
@@ -17,15 +18,15 @@ const CreateUser = async (req, res) => {
 const SigninUser = async (req, res) => {
   const { email_id, password } = req.body;
   try {
-    const existingUser = await User.findOne({ where: { email_id ,password} });
+    const existingUser = await User.findOne({ where: { email_id, password } });
     if (existingUser) {
-      return res.status(200).json({ message: "User signed in" });
-    }
-    else{
-      return res.status(501).json({message:"PLease sign up user"});
+      const token = generateToken(existingUser.id);
+      return res.status(200).json({ token, message: "User signed in",id:existingUser.id });
+    } else {
+      return res.status(404).json({ message: "User not found. Please sign up." });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Error creating user", error: error.message });
+    return res.status(500).json({ message: "Error signing in", error: error.message });
   }
 };
 
@@ -39,9 +40,9 @@ const GetUser = async (req, res) => {
 };
 
 const GetUserById = async (req, res) => {
-   const {id}= req.params;
+  const userId = req.user.userId;
   try {
-    const users = await User.findOne({where:{id}}); 
+    const users = await User.findOne({where:{id: userId}}); 
     if(users){
       return res.status(200).json({ users }); 
     }
@@ -54,10 +55,10 @@ const GetUserById = async (req, res) => {
 };
 
 const SpecificUserAllCategory = async (req, res) => {
-  const { id } = req.params; 
+  const userId = req.user.userId; 
 
   try {
-    const allExpenses = await Expense.findAll({ where: { user_id: id } });
+    const allExpenses = await Expense.findAll({ where: { user_id: userId } });
 
     const expenseIds = allExpenses.map(expense => expense.id);
 

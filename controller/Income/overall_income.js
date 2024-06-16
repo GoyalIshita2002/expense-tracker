@@ -1,12 +1,12 @@
 const { Income,User,Goal } = require('../../postgres/connection.js')
 
 const OverAllIncomeUser = async (req, res) => {
-    const { id } = req.params;
+    const userId = req.user.userId;
     try {
-        const user = await User.findOne({ where: { id } });
+        const user = await User.findOne({ where: { id: userId } });
         if (user) {
-            const incomes = await Income.findAll({ where: { userId: id } });
-            const goals = await Goal.findAll({ where: { userId: id } });
+            const incomes = await Income.findAll({ where: { userId } });
+            const goals = await Goal.findAll({ where: { userId } });
             const totalIncome = incomes.reduce((sum, income) => sum + income.amount, 0);
             const totalGoalDeposit = goals.reduce((sum, goal) => sum + goal.goalDeposit, 0);
             const overallMoney = totalIncome + totalGoalDeposit;

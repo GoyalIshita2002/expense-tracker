@@ -24,7 +24,7 @@ const GetCategory = async (req, res) => {
 
 const GetExpenseSpecificCategory = async (req, res) => {
   const CategoryId = req.params.id; 
-  const userId = req.params.userId; 
+  const userId = req.user.userId;
   try {
     const categoryExpenses = await CategoryExpense.findAll({ where: { CategoryId } });
 
@@ -44,7 +44,7 @@ const GetExpenseSpecificCategory = async (req, res) => {
 
 
 const GetDailyExpensesForDate = async (req, res) => {
-  const userId = req.params.userId; 
+  const userId = req.user.userId; 
   const CategoryId = req.params.id; 
   const weekStartDate = req.query.Date; 
   try {
