@@ -5,6 +5,7 @@ const ExpenseModel = require('../models/expense.js');
 const CategoryExpenseModel = require('../models/categoryexpense.js'); 
 const IncomeModel = require('../models/income.js');
 const GoalModel = require('../models/goal.js');
+const NotificationModel = require('../models/notification.js');
 
 // const sequelize = new Sequelize('expensetracker', 'johndoe', 'randompassword', {
 //   host: 'localhost',
@@ -31,6 +32,7 @@ const Category = CategoryModel(sequelize, Sequelize.DataTypes);
 const CategoryExpense = CategoryExpenseModel(sequelize, Sequelize.DataTypes); 
 const Income = IncomeModel(sequelize, Sequelize.DataTypes);
 const Goal = GoalModel(sequelize, Sequelize.DataTypes);
+const Notification = NotificationModel(sequelize,Sequelize.DataTypes);
 
 User.hasMany(Expense, { foreignKey: 'user_id', as: 'expenses' });
 Expense.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
@@ -44,6 +46,9 @@ Goal.belongsTo(User, { foreignKey: 'userId' });
 Category.belongsToMany(Expense, { through: CategoryExpense });
 Expense.belongsToMany(Category, { through: CategoryExpense });
 
+User.hasMany(Notification, { foreignKey: 'user_id', as: 'notification' });
+Notification.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+
 const connectDB = async () => {
   try {
     await sequelize.authenticate();
@@ -56,4 +61,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = { sequelize, connectDB, User, Expense, Category, CategoryExpense ,Income,Goal }; 
+module.exports = { sequelize, connectDB, User, Expense, Category, CategoryExpense ,Income,Goal,Notification }; 
