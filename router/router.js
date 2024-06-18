@@ -11,6 +11,7 @@ const { UpdateGoal,ShowSpecificGoal,ShowGoal,CreateGoal,DeleteGoal } = require('
 const {OverAllIncomeUser } = require('../controller/Income/overall_income.js')
 const {GoalDepositUser} = require('../controller/Goal/income.js')
 const {DeleteNotification,UpdateNotification,GetSpecificNotification,GetAllNotification,CreateNotification} = require('../controller/Notification/notification.js')
+const {CreateVideo} = require('../controller/video/video.js')
 
 router.post('/user', CreateUser); 
 router.post('/signin', SigninUser); 
@@ -53,5 +54,8 @@ router.get('/usernotification', GetAllNotification);
 router.get('/usernotification/:id', GetSpecificNotification); 
 router.put('/usernotification/:id', UpdateNotification); 
 router.delete('/usernotification/:id',DeleteNotification);
+
+router.post('/addBadges', CreateVideo); 
+
 
 module.exports = router;
