@@ -51,8 +51,8 @@ Expense.belongsToMany(Category, { through: CategoryExpense });
 User.hasMany(Notification, { foreignKey: 'user_id', as: 'notification' });
 Notification.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
-User.hasMany(Video, { foreignKey: 'user_id', as: 'video' });
-Video.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+User.hasMany(Video, { foreignKey: 'userId', as: 'video' });
+Video.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
 const connectDB = async () => {
   try {
