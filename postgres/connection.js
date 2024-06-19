@@ -7,6 +7,9 @@ const IncomeModel = require('../models/income.js');
 const GoalModel = require('../models/goal.js');
 const NotificationModel = require('../models/notification.js');
 const VideoModel = require('../models/video.js');
+const ChoreModel = require('../models/chore.js');
+const RewardModel = require('../models/reward.js');
+const TaskModel = require('../models/task.js');
 
 // const sequelize = new Sequelize('expensetracker', 'johndoe', 'randompassword', {
 //   host: 'localhost',
@@ -35,6 +38,9 @@ const Income = IncomeModel(sequelize, Sequelize.DataTypes);
 const Goal = GoalModel(sequelize, Sequelize.DataTypes);
 const Notification = NotificationModel(sequelize,Sequelize.DataTypes);
 const Video = VideoModel(sequelize,Sequelize.DataTypes);
+const Task = TaskModel(sequelize,Sequelize.DataTypes);
+const Reward = RewardModel(sequelize,Sequelize.DataTypes);
+const Chore = ChoreModel(sequelize,Sequelize.DataTypes);
 
 User.hasMany(Expense, { foreignKey: 'user_id', as: 'expenses' });
 Expense.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
@@ -54,6 +60,12 @@ Notification.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 User.hasMany(Video, { foreignKey: 'userId', as: 'video' });
 Video.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
+User.hasMany(Chore, { foreignKey: 'userId', as: 'chores' });
+Chore.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+Task.hasMany(Chore, { foreignKey: 'taskId', as: 'chores' });
+Chore.belongsTo(Task, { foreignKey: 'taskId', as: 'task' });
+
 const connectDB = async () => {
   try {
     await sequelize.authenticate();
@@ -66,4 +78,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = { sequelize, connectDB, User, Expense, Category, CategoryExpense ,Income,Goal,Notification,Video }; 
+module.exports = { sequelize, connectDB, User, Expense, Category, CategoryExpense ,Income,Goal,Notification,Video,Chore,Task,Reward }; 
