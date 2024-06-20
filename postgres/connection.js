@@ -63,6 +63,9 @@ Video.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 User.hasMany(Chore, { foreignKey: 'userId', as: 'chores' });
 Chore.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
+User.hasMany(Reward, { foreignKey: 'userId', as: 'reward' });
+Reward.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
 Task.hasMany(Chore, { foreignKey: 'taskId', as: 'chores' });
 Chore.belongsTo(Task, { foreignKey: 'taskId', as: 'task' });
 
