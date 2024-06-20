@@ -15,7 +15,7 @@ const {CreateVideo,GetVideo} = require('../controller/video/video.js')
 const {CreateTask,ShowTask,DeleteTask} = require('../controller/task/task.js')
 const {assignDailyTasks,getDailyTasks,getDailyAssignedTasks,UpdateChore,getDailyCompletedTasks} = require('../controller/chore/chore.js')
 const {UserTasksAndPoints} = require('../controller/chore/points.js')
-const {updateUserRewardStatus} = require('../controller/reward/overallreward.js')
+const {updateUserRewardStatus,getBadgeThresholds} = require('../controller/reward/overallreward.js')
 
 router.post('/user', CreateUser); 
 router.post('/signin', SigninUser); 
@@ -32,6 +32,8 @@ router.delete('/task/:id',DeleteTask);
 router.use(authenticateToken);
  
 router.post('/rewards', updateUserRewardStatus); 
+router.get('/Badge', getBadgeThresholds); 
+
 
 
 router.post('/assignDailyTasks', assignDailyTasks);

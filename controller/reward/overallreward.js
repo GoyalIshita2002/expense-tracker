@@ -11,6 +11,10 @@ const badgeThresholds = [
     {points: 0,badge: 'Newbie'}
 ];
 
+const getBadgeThresholds = (req,res) => {
+    return res.status(200).json({Badge:badgeThresholds});
+};
+
 const getBadgeForPoints = (points) => {
     for (let i = 0; i < badgeThresholds.length; i++) {
         if (points >= badgeThresholds[i].points) {
@@ -72,5 +76,5 @@ const updateUserRewardStatus = async (req, res) => {
 };
 
 module.exports = {
-    updateUserRewardStatus
+    updateUserRewardStatus,getBadgeThresholds
 }
