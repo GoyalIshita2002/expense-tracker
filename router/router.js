@@ -13,8 +13,9 @@ const {GoalDepositUser} = require('../controller/Goal/income.js')
 const {DeleteNotification,UpdateNotification,GetSpecificNotification,GetAllNotification,CreateNotification} = require('../controller/Notification/notification.js')
 const {CreateVideo,GetVideo} = require('../controller/video/video.js')
 const {CreateTask,ShowTask,DeleteTask} = require('../controller/task/task.js')
-const {CreateReward,ShowReward,DeleteReward} = require('../controller/reward/reward.js')
-// const {assignDailyTasks} = require('../controller/chore/chore.js')
+const {assignDailyTasks,getDailyTasks,getDailyAssignedTasks,UpdateChore,getDailyCompletedTasks} = require('../controller/chore/chore.js')
+const {UserTasksAndPoints} = require('../controller/chore/points.js')
+const {updateUserRewardStatus} = require('../controller/reward/overallreward.js')
 
 router.post('/user', CreateUser); 
 router.post('/signin', SigninUser); 
@@ -26,15 +27,22 @@ router.post('/task', CreateTask);
 router.get('/task', ShowTask); 
 router.delete('/task/:id',DeleteTask); 
 
-router.post('/reward', CreateReward); 
-router.get('/reward', ShowReward); 
-router.delete('/reward/:id',DeleteReward); 
-
 
 
 router.use(authenticateToken);
+ 
+router.post('/rewards', updateUserRewardStatus); 
 
-// router.post('/assignDailyTasks', assignDailyTasks); 
+
+router.post('/assignDailyTasks', assignDailyTasks);
+router.get('/getDailyTasks', getDailyTasks); 
+router.get('/getDailyAssignedTasks', getDailyAssignedTasks);
+router.get('/getDailyCompletedTasks', getDailyCompletedTasks); 
+router.put('/updatechore/:id', UpdateChore); 
+
+router.get('/overallpoints', UserTasksAndPoints); 
+
+
 
 router.get('/specificUser', GetUserById); 
 router.get('/specificCategory', SpecificUserAllCategory); 
