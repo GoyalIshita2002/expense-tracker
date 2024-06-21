@@ -8,7 +8,7 @@ const UserTasksAndPoints = async (req, res) => {
             const chores = await Chore.findAll({
                 where: {
                     userId: userId,
-                    status: 'assigned',
+                    status: 'completed',
                 }
             });
     
