@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticateToken = require('../middleware/authenticateToken.js');
-const { SpecificUserExpense,SpecificDateUserExpense } = require('../controller/user/userexpense.js')
-const { CreateUser, GetUser,SpecificUserAllCategory,GetUserById,SigninUser } = require('../controller/user/user.js');
-const { CreateExpense,GetExpense} = require('../controller/expense.js')
-const { CreateCategory,GetCategory,GetExpenseSpecificCategory,GetDailyExpensesForDate} = require('../controller/category/category.js')
-const { CreateCategoryExpense, GetCategoryExpense } = require('../controller/categoryexpense.js')
+const { CreateUser, GetUser,GetUserById,SigninUser } = require('../controller/user/user.js');
 const {UpdateIncome,ShowSpecificIncome,ShowIncome,CreateIncome} = require('../controller/Income/Income.js')
 const { UpdateGoal,ShowSpecificGoal,ShowGoal,CreateGoal,DeleteGoal } = require('../controller/Goal/userGoal.js')
 const {OverAllIncomeUser } = require('../controller/Income/overall_income.js')
@@ -16,21 +12,32 @@ const {CreateTask,ShowTask,DeleteTask} = require('../controller/task/task.js')
 const {assignDailyTasks,getDailyTasks,getDailyAssignedTasks,UpdateChore,getDailyCompletedTasks} = require('../controller/chore/chore.js')
 const {UserTasksAndPoints} = require('../controller/chore/points.js')
 const {updateUserRewardStatus,getBadgeThresholds} = require('../controller/reward/overallreward.js')
+const {CreateCategory,GetCategory,SpecificCategory,DeleteCategory}= require('../controller/expensecategory/category.js')
+const {GetOverallExpense,GetOverallExpenseByDate,GetOverallExpenseByWeek,GetWeeklyExpensesForMonth} = require('../controller/expensecategory/expense.js')
 
 router.post('/user', CreateUser); 
 router.post('/signin', SigninUser); 
 router.get('/user', GetUser); 
-router.post('/category', CreateCategory); 
-router.get('/category', GetCategory); 
+
 
 router.post('/task', CreateTask); 
 router.get('/task', ShowTask); 
 router.delete('/task/:id',DeleteTask); 
 
 
-
 router.use(authenticateToken);
- 
+
+router.post('/category', CreateCategory); 
+router.get('/category', GetCategory); 
+router.get('/category/:id',SpecificCategory); 
+router.delete('/category/:id',DeleteCategory); 
+router.get('/userOverallExpense', GetOverallExpense); 
+router.get('/userExpenseThroughDate', GetOverallExpenseByDate); 
+router.get('/userExpenseThroughWeek', GetOverallExpenseByWeek); 
+router.get('/userWeeklyExpensesForMonth', GetWeeklyExpensesForMonth); 
+
+
+
 router.post('/rewards', updateUserRewardStatus); 
 router.get('/Badge', getBadgeThresholds); 
 
@@ -47,22 +54,11 @@ router.get('/overallpoints', UserTasksAndPoints);
 
 
 router.get('/specificUser', GetUserById); 
-router.get('/specificCategory', SpecificUserAllCategory); 
-router.get('/userOverallExpense',  SpecificUserExpense);
-router.get('/userExpenseThroughDate', SpecificDateUserExpense); 
+
 router.get('/useroverallIncome', OverAllIncomeUser); 
 router.get('/userGoalIncome', GoalDepositUser); 
 
 
-
-router.post('/expense', CreateExpense); 
-router.get('/expense',GetExpense); 
-
-router.post('/categoryexpense', CreateCategoryExpense); 
-router.get('/categoryexpense',GetCategoryExpense); 
-
-router.get('/userexpensecategory/:id',GetExpenseSpecificCategory); 
-router.get('/userexpensecategorybyday/:id',GetDailyExpensesForDate); 
 
 router.post('/income',CreateIncome); 
 router.get('/userincome', ShowIncome); 
