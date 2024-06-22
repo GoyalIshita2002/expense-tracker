@@ -54,32 +54,13 @@ const GetUserById = async (req, res) => {
   }
 };
 
-const SpecificUserAllCategory = async (req, res) => {
-  const userId = req.user.userId; 
 
-  try {
-    const allExpenses = await Expense.findAll({ where: { user_id: userId } });
-
-    const expenseIds = allExpenses.map(expense => expense.id);
-
-    const categoryExpenses = await CategoryExpense.findAll({ where: { ExpenseId: expenseIds } });
-
-    const categoryIds = categoryExpenses.map(categoryExpense => categoryExpense.CategoryId);
-
-    const categories = await Category.findAll({ where: { id: categoryIds } });
-
-    return res.status(200).json({ categories });
-  } catch (error) {
-    return res.status(500).json({ message: "Error fetching categories", error: error.message });
-  }
-};
 
 
 module.exports = {
   CreateUser,
   GetUser,
   SigninUser,
-  SpecificUserAllCategory,
   GetUserById
 };
 
